@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ASR Drive 个人转录工具如何使用 Google Drive 数据、第三方处理服务及任务记录。">
+  <title>隐私说明 · ASR Drive</title>
+  <style>
+    :root{color-scheme:light;--ink:#18342f;--muted:#52665f;--line:#d9e3dd;--accent:#176451}*{box-sizing:border-box}body{margin:0;background:#f6f8f5;color:var(--ink);font:17px/1.8 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}header,main,footer{max-width:800px;margin:auto;padding:24px}header{border-bottom:1px solid var(--line)}.brand{font-weight:700;font-size:20px}nav{display:flex;gap:24px;flex-wrap:wrap;margin-top:12px}a{color:var(--accent);text-underline-offset:4px}nav a[aria-current]{font-weight:700}main{padding-top:40px;padding-bottom:48px}h1{font-size:32px;line-height:1.35;margin:0 0 20px}h2{font-size:22px;line-height:1.5;margin:32px 0 12px}p{margin:12px 0}ul{padding-left:24px}li{padding-left:4px;margin:10px 0}.intro{font-size:19px}.notice{border-left:4px solid #91b5a7;background:#eaf1eb;padding:14px 18px}footer{color:var(--muted);border-top:1px solid var(--line);font-size:14px}a:focus-visible{outline:3px solid #c59136;outline-offset:5px}@media(max-width:520px){header,main,footer{padding-left:20px;padding-right:20px}h1{font-size:28px}nav{gap:18px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">ASR Drive · 个人转录工具</div>
+    <nav aria-label="页面导航"><a href="index.html">应用说明</a><a href="privacy.html" aria-current="page">隐私说明</a><a href="terms.html">个人使用条件</a></nav>
+  </header>
+  <main>
+    <h1>隐私说明</h1>
+    <p class="intro">本说明对应所有者个人使用的 Google Drive → GitHub Actions → AssemblyAI 直连转录流程。它说明实际处理的数据和存放位置，不承诺数据不经过第三方或始终不会发生安全风险。</p>
+    <h2>读取与生成的数据</h2>
+    <ul>
+      <li>指定 Drive 文件夹及选定媒体的名称、文件标识、类型、大小等元数据，以及需要转录的音频或视频内容。</li>
+      <li>AssemblyAI 返回的转录文字、时间信息、说话人标签及其他识别结果字段。</li>
+      <li>用于任务执行、去重和恢复的任务编号、状态、源文件关联信息及成果链接。</li>
+    </ul>
+    <h2>Google Drive 授权的用途</h2>
+    <p>当前应用请求 Google Drive 读写权限。运行时使用这些权限读取指定文件夹和明确选定的媒体，并创建或更新 TXT、SRT、JSON 成果及任务标记。</p>
+    <p>预检会在目标文件夹创建临时测试文件、读回内容并清理该测试文件。当前转录流程不会因完成转录而删除原始媒体；已有成果及任务记录用于防止重复提交。</p>
+    <p>OAuth 凭据保存在私有仓库的 GitHub Actions Secrets 中，供任务访问 Drive。重新授权由本机脚本取得授权并写入 Secrets；这些凭据不应被放入说明页面、Issue、源码或转录成果。</p>
+    <h2>哪些服务参与处理</h2>
+    <p>Google Drive 保存源媒体和归档成果。私有 GitHub Actions 运行任务、读取媒体并将选定媒体发送到 AssemblyAI。AssemblyAI 执行语音识别并返回结果。因此，媒体内容及相应识别结果会经过这些第三方服务。</p>
+    <p>GitHub Issue 和执行日志可包含文件名称、任务状态、任务编号及成果链接等运行信息。相关数据受对应账号、仓库和各服务自身的权限配置与服务政策约束。</p>
+    <h2>保存时间与管理</h2>
+    <ul>
+      <li>Drive 中的原媒体、转录成果和任务标记由所有者管理；工作流没有为这些文件设置自动删除期限。</li>
+      <li>私有 GitHub Actions Artifact 中的成果及恢复记录，当前配置保留 30 天。Issue、日志等记录应通过 GitHub 各自的管理与保留设置处理，不能据此推定也统一保留 30 天。</li>
+      <li>AssemblyAI 的数据保留及删除行为取决于其现行政策和实际账号配置；本页不设定或承诺一个尚未核实的期限。</li>
+    </ul>
+    <h2>停止授权与后续处理</h2>
+    <p>所有者可在 Google 账号的第三方连接设置中撤销本应用授权，并停用相关工作流或移除仓库中的 OAuth Secrets。撤销授权会影响后续 Drive 访问，但不等于自动删除已经生成或传送的数据；已有数据需在各对应平台分别管理。</p>
+    <p class="notice">本应用仅供所有者个人使用，不提供公众账号。</p>
+  </main>
+  <footer>ASR Drive · <a href="index.html">返回应用说明</a></footer>
+</body>
+</html>
